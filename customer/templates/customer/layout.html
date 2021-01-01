@@ -49,7 +49,7 @@
             <li><a href="{% url 'emitr:index' %}">Home</a></li>
             <li><a href="{% url 'customer:download' %}">Download</a></li>
             <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
-            <li onclick="dropdown()">
+            <li onclick="dropdownFunction()">
                 <div>
                     <i class="fas fa-user"></i>
                     &nbsp;{{ request.user }}
@@ -87,19 +87,5 @@
     <!-- End Admin Page Wrapper-->
 
 </body>
-
-<script type="text/javascript">
-
-    function show_hide(menu){
-        var menu = document.getElementById(menu);
-        
-        if(menu.style.display == 'block'){
-            menu.style.display = 'none';
-        }
-        else{
-            menu.style.display = 'block';
-        }
-    }
-</script>
 
 </html>

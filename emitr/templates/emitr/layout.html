@@ -61,13 +61,13 @@
                 <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
                 <li><a href="{% url 'customer:index' %}" target="_blank">Customer</a></li>
                 <li><a href="{% url 'emitr:contact' %}">Contact Us</a></li>
-                <li onclick="dropdownFunction()" class="dropbtn">
+                <li onclick="dropdownFunction()">
                     <div>
                         <i class="fas fa-user"></i>
                         &nbsp;{{ request.user }}
                         <i class="fas fa-chevron-down" style="font-size: .8em;"></i>
                     </div>
-                    <ul id="myDropdown" class="dropdown-content">
+                    <ul id="myDropdown">
                         <li><a href="{% url 'admin:password_change' %}" target="_blank">Change Password</a></li>
                         <li><a href="{% url 'emitr:logout' %}" class="logout">Logout</a></li>
                     </ul>
@@ -124,27 +124,5 @@
         <!--End Footer-->
 
     </body>
-
-    <script type="text/javascript">
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function dropdownFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
 
 </html>
