@@ -9,7 +9,6 @@
 ***
 
 ### Technologies Used:
-* Python
 * Django
 * HTML
 * CSS
