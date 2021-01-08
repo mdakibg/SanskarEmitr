@@ -65,3 +65,9 @@
 </div>
 
 {% endblock %}
+
+{% block UsefulLinks %}
+    {% for link in usefullinks %}
+        <a href="{{ link.url }}" target="_blank"><li>{{ link.text }}</li></a>
+    {% endfor %}
+{% endblock %}

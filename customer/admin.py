@@ -4,7 +4,7 @@ from .models import CustomerRecord
 
 # Register your models here.
 class ExtendCustomerRecord(admin.ModelAdmin):
-    list_display = ('name', 'service', 'subservice', 'payment', 'priority', 'status')
+    list_display = ('name', 'service', 'subservice', 'payment', 'priority', 'status', 'StatusChanged')
 
 
 admin.site.register(CustomerRecord, ExtendCustomerRecord)

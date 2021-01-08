@@ -21,12 +21,16 @@ header {
 }
 
 .admin-wrapper .left-sidebar ul li {
-    padding: 18px;
     display: block;
     border-bottom: 1px solid #013133;
 }
 
-.admin-wrapper .left-sidebar ul li:hover {
+.admin-wrapper .left-sidebar ul li a {
+    display: block;
+    padding: 18px;
+}
+
+.admin-wrapper .left-sidebar ul li a:hover {
     background: #013133;
 }
 
@@ -55,8 +59,7 @@ header {
 }
 
 .edit:hover,
-.delete:hover,
-.publish:hover {
+.delete:hover {
     text-decoration: underline;
 }
 

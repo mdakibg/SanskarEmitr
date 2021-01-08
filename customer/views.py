@@ -6,6 +6,7 @@ from .models import CustomerRecord
 from emitr.models import Service
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 import csv
 
 # Create your views here.
@@ -84,6 +85,11 @@ def edit_view(request, request_id):
                 return HttpResponseRedirect(reverse('customer:edit', args=(request_id,)))
 
             record = CustomerRecord.objects.get(pk=request_id)
+
+            if record.status != request.POST['status']:
+                current_date = datetime.now().strftime("%d-%m-%y")
+                record.StatusChanged = f"{request.POST['status']} ({current_date})"
+
             record.name = request.POST["name"]
             record.mobile = request.POST["mobile"]
             record.payment = request.POST["payment"]

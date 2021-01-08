@@ -5,6 +5,23 @@
 {% endblock %}
 
 {% block main %}
+    <!--Latest Updates-->
+    <div class="updates-container">
+        <marquee behavior="scroll" direction="left" scrollamount="10">
+            {% for update in latestupdates %}
+            <span>new</span>&nbsp;{{ update.headline }}
+            &nbsp;
+            {% endfor %}
+        </marquee>
+    </div>
+    <!--End Latest Updates-->
+
+    <!--Page Banner-->
+    <div class="banner">
+        {% load static %}
+        <img src="{% static 'image/banner.jpg' %}" alt="Banner Image">
+    </div>
+    <!--End Page Banner-->
 
     <!--Page Wrapper-->
     <div class="page-wrapper">
@@ -17,12 +34,12 @@
 
             <div class="post-wrapper">
                 
-                {% for post in ExclusiveServices %}
-                    <div class="post">
-                        <img src="{{ post.image.url }}" alt="" class="slider-image">
+                {% for service in ExclusiveServices %}
+                    <div class="post" onclick="location.href='/fee/{{service.id}}' ">
+                        <img src="{{ service.image.url }}" alt="" class="slider-image">
                         <div class="post-info">
-                            <h3><a href="{% url 'emitr:service_fee' post.id %}">{{ post.title }}</a></h3>
-                            <p>{{ post.ExclusiveDescription }}</p>
+                            <h4><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></h4>
+                            <p style="font-size: 15px;">{{ service.ExclusiveDescription }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -36,23 +53,21 @@
 
             <!--Main Content-->
             <div class="main-content">
-                <h1 class="recent-post-title">All Available Services</h1>
+                <h1 class="recent-post-title">E-Mitra Services</h1>
 
                 {% for service in services %}
-                    {% if service.isExclusive != True %}
                     <div class="post clearfix">
                         <img src="{{ service.image }}" alt="" class="post-image">
                         <div class="post-preview">
-                            <h2><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></h2>
+                            <h3><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></h3>
                             <p class="preview-text">
                                 {% for subservice in service.subservices %}
                                     ●&nbsp;{{ subservice.name }}<br>                                
-                                {% endfor %}                            
+                                {% endfor %}
                             </p>
                             <a href="{% url 'emitr:service_fee' service.id %}" class="btn read-more">See All</a>
                         </div>
                     </div>
-                    {% endif %}
                 {% endfor %}
 
             </div>
@@ -87,4 +102,10 @@
     </div>
     <!-- End Page Wrapper-->
 
+{% endblock %}
+
+{% block UsefulLinks %}
+    {% for link in usefullinks %}
+        <a href="{{ link.url }}" target="_blank"><li>{{ link.text }}</li></a>
+    {% endfor %}
 {% endblock %}

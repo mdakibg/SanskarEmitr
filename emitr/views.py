@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Service, SubService
+from .models import LatestUpdate, Service, SubService, UsefulLink
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -15,7 +15,9 @@ def index(request):
     if request.method == "POST":
         if not request.POST['search-term']:
             messages.info(request, 'Provide search term!')
-            return render(request, 'emitr/search_results.html')
+            return render(request, 'emitr/search_results.html', {
+                'usefullinks': UsefulLink.objects.all().order_by('-date')
+            })
 
         search_term = request.POST['search-term']
         subservices = SubService.objects.filter(name__icontains=search_term)
@@ -32,12 +34,14 @@ def index(request):
                     })
             return render(request, 'emitr/search_results.html', {
                 'ServiceResults': ServiceResults,
-                "search_term": search_term
+                "search_term": search_term,
+                'usefullinks': UsefulLink.objects.all().order_by('-date')
             })
         elif subservices and not services:
             return render(request, 'emitr/search_results.html', {
                 'SubServiceResults': subservices,
-                "search_term": search_term
+                "search_term": search_term,
+                'usefullinks': UsefulLink.objects.all().order_by('-date')
             })
         elif services and subservices:
             ServiceResults = list()
@@ -52,18 +56,29 @@ def index(request):
             return render(request, 'emitr/search_results.html', {
                 'SubServiceResults': subservices,
                 'ServiceResults': ServiceResults,
-                "search_term": search_term
+                "search_term": search_term,
+                'usefullinks': UsefulLink.objects.all().order_by('-date')
             })
         else:
           messages.info(request, 'No Results Found!')
           return render(request, 'emitr/search_results.html', {
-              'search_term': search_term
+              'search_term': search_term,
+              'usefullinks': UsefulLink.objects.all().order_by('-date')
           })
 
-
+    # if method is GET
     services = list()
+    ExclusiveServices = list()
     for service in Service.objects.all():
-        services.append({
+        if service.isExclusive == True:
+            ExclusiveServices.append({
+                'id': service.id,
+                'title': service.title,
+                'image': service.image,
+                'ExclusiveDescription': service.ExclusiveDescription,
+            })
+        else:
+            services.append({
             'id': service.id,
             'title': service.title,
             'image': service.image.url,
@@ -71,13 +86,17 @@ def index(request):
             'subservices': service.subservice_set.all()[:5]
         })
     return render(request, "emitr/index.html", {
-        "ExclusiveServices": Service.objects.filter(isExclusive=True),
+        'latestupdates': LatestUpdate.objects.all().order_by('-date'),
+        'ExclusiveServices': Service.objects.filter(isExclusive=True),
         'services': services,
+        'usefullinks': UsefulLink.objects.all().order_by('-date')
     })
 
 
 def contact_view(request):
-    return render(request, 'emitr/contact.html')
+    return render(request, 'emitr/contact.html', {
+        'usefullinks': UsefulLink.objects.all().order_by('-date')
+    })
 
 
 def login_view(request):
@@ -98,7 +117,9 @@ def login_view(request):
         logout(request)
         return HttpResponseRedirect(reverse("emitr:login"))
         
-    return render(request, "emitr/login.html")
+    return render(request, "emitr/login.html", {
+        'usefullinks': UsefulLink.objects.all().order_by('-date')
+    })
 
 
 @login_required(login_url="emitr:login")
@@ -110,5 +131,6 @@ def logout_view(request):
 def service_fee_view(request, service_id):
     return render(request, 'emitr/service_fee.html', {
         'service': Service.objects.get(pk=service_id),
-        'subservices': Service.objects.get(pk=service_id).subservice_set.all()
+        'subservices': Service.objects.get(pk=service_id).subservice_set.all(),
+        'usefullinks': UsefulLink.objects.all().order_by('-date')
     })

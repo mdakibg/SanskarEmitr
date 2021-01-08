@@ -32,7 +32,6 @@
         <script src="{% static 'js/script.js' %}"></script>
 
         <title>SanskarEmitra |{% block title %}{% endblock %}</title>
-
     </head>
 
     <body>
@@ -83,7 +82,8 @@
         </header>
         <!-- End Navbar -->
 
-        {% block main %}{% endblock %}
+        {% block main %}
+        {% endblock %}
 
         <!--Footer-->
         <div class="footer">
@@ -101,19 +101,16 @@
                 <div class="footer-section links">
                     <h2>Useful Links</h2>
                     <ul>
-                        <a href="https://rajasthan.gov.in/Pages/default.aspx" target="_blank"><li>rajasthan.gov.in</li></a>
-                        <a href="https://www.india.gov.in/" target="_blank"><li>www.india.gov.in</li></a>
-                        <a href="http://www.emitra.rajasthan.gov.in/" target="_blank"><li>Emitra Govt. Site</li></a>
-                        <a href="http://emitra.rajasthan.gov.in/content/emitra/en/ServiceList.html" target="_blank"><li>Service Rate List</li></a>
-                        <a href="https://uidai.gov.in/" target="_blank"><li>Official Aadhaar Site</li></a>
+                        {% block UsefulLinks %}
+                        {% endblock %}
                     </ul>
                 </div>
                 <div class="footer-section contact">
                     <a href="{% url 'emitr:contact' %}"><h2>Contact Us</h2></a>
                     <div class="contacts">
-                        <span><i class="fas fa-phone-alt"> &nbsp; +91-7976048007</i></span>                        
-                        <span><i class="fas fa-phone-alt"> &nbsp; +91-9667079375</i></span>
-                        <span><i class="fab fa-whatsapp"> &nbsp; +91-7976048007</i></span>
+                        <span><i class="fas fa-phone-alt"> &nbsp; +91-7976048007 &nbsp;</i><i class="fab fa-whatsapp"></i></span>                        
+                        <span><i class="fas fa-phone-alt"> &nbsp; +91-9460029746 &nbsp;</i><i class="fab fa-whatsapp"></i></span>
+                        <span><i class="fas fa-phone-alt"> &nbsp; +91-9829464133 &nbsp;</i><i class="fab fa-whatsapp"></i></span>
                     </div>
                 </div>
             </div>

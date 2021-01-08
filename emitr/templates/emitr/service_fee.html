@@ -27,10 +27,20 @@
                     <td>{{ service.name }}</td>
                     <td>{{ service.fee }}</td>                    
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center; font-weight: bolder;">Nothing to Show!</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
 
+{% endblock %}
+
+{% block UsefulLinks %}
+    {% for link in usefullinks %}
+        <a href="{{ link.url }}" target="_blank"><li>{{ link.text }}</li></a>
+    {% endfor %}
 {% endblock %}

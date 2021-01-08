@@ -3,6 +3,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class LatestUpdate(models.Model):
+    headline = models.TextField()
+    date = models.DateField(auto_now_add=True, blank=False)
+
+    def __str__(self):
+        return f'{self.headline} ({self.date})'
+
 class Service(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(upload_to='images/service', null=True, blank=True)
@@ -23,3 +30,11 @@ class SubService(models.Model):
 
     def __str__(self):
         return f'{self.name}({self.fee})'
+
+class UsefulLink(models.Model):
+    text = models.CharField(max_length=100)
+    url = models.TextField()
+    date = models.DateField(auto_now_add=True, blank=False)
+
+    def __str__(self):
+        return f'{self.text} ({self.url})'

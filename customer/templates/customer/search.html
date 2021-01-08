@@ -57,7 +57,8 @@
                     <th>Advance</th>
                     <th>Priority</th>
                     <th>Status</th>
-                    <th>Date</th>
+                    <th>Status Changed</th>
+                    <th>Created</th>
                     <th colspan="2"></th>
                 </thead>
                 <tbody>
@@ -71,6 +72,7 @@
                         <td>{{ record.advance }}</td>
                         <td>{{ record.priority }}</td>
                         <td>{{ record.status }}</td>
+                        <td>{{ record.StatusChanged }}</td>
                         <td>{{ record.date }}</td>
                         <td><a href="{% url 'customer:edit' record.id %}" class="edit">edit</a></td>
                         <td>

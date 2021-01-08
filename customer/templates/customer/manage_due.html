@@ -28,6 +28,7 @@
                     <th>Payment</th>
                     <th>Priority</th>
                     <th>Status</th>
+                    <th>Status Changed</th>
                     <th colspan="1"></th>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                         <td>{{ record.payment }}</td>
                         <td>{{ record.priority }}</td>
                         <td>{{ record.status }}</td>
+                        <td>{{ record.StatusChanged }}</td>
                         <td>
                             <form action="{% url 'customer:manage_due' %}" method="POST" onsubmit="return confirm('Are you sure?');">
                                 {% csrf_token %}

@@ -32,7 +32,8 @@
                     <th>Payment Due</th>
                     <th>Priority</th>
                     <th>Status</th>
-                    <th>Date</th>
+                    <th>Status Changed</th>
+                    <th>Created</th>
                     <th colspan="1"></th>
                 </thead>
                 <tbody>
@@ -45,6 +46,7 @@
                         <td>{{ RemainingPayment }}</td>
                         <td>{{ record.priority }}</td>
                         <td>{{ record.status }}</td>
+                        <td>{{ record.StatusChanged }}</td>
                         <td>{{ record.date }}</td>
                         <td><a href="{% url 'customer:edit' record.id %}" class="edit">edit</a></td>
                     </tr>
