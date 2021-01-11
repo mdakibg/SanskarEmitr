@@ -33,7 +33,7 @@
             <i class="fas fa-chevron-right next"></i>
 
             <div class="post-wrapper">
-                
+
                 {% for service in ExclusiveServices %}
                     <div class="post" onclick="location.href='/fee/{{service.id}}' ">
                         <img src="{{ service.image.url }}" alt="" class="slider-image">
@@ -62,7 +62,7 @@
                             <h3><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></h3>
                             <p class="preview-text">
                                 {% for subservice in service.subservices %}
-                                    ●&nbsp;{{ subservice.name }}<br>                                
+                                    ●&nbsp;{{ subservice.name }}<br>
                                 {% endfor %}
                             </p>
                             <a href="{% url 'emitr:service_fee' service.id %}" class="btn read-more">See All</a>
@@ -72,7 +72,7 @@
 
             </div>
             <!-- End Main Content-->
-            
+
             <!--Sidebar-->
             <div class="sidebar">
 
@@ -80,13 +80,16 @@
                     <h2 class="section-title">Search</h2>
                     <form action="{% url 'emitr:index' %}" method="POST">
                         {% csrf_token %}
-                        <input type="text" name="search-term" class="text-input" placeholder="Search..." required> 
+                        <input type="text" name="search-term" class="text-input" placeholder="Search..." required>
                     </form>
                 </div>
 
                 <div class="section topics">
                     <h2 class="section-title">Services Fees</h2>
                     <ul>
+                        {% for service in ExclusiveServices %}
+                            <li><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></li>
+                        {% endfor %}
                         {% for service in services %}
                             <li><a href="{% url 'emitr:service_fee' service.id %}">{{ service.title }}</a></li>
                         {% endfor %}
@@ -98,7 +101,7 @@
 
         </div>
         <!--End Content-->
-        
+
     </div>
     <!-- End Page Wrapper-->
 

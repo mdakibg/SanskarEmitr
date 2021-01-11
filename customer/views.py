@@ -12,7 +12,7 @@ import csv
 # Create your views here.
 @login_required(login_url="emitr:login")
 def index_view(request):
-    records = CustomerRecord.objects.filter(status='Due').order_by('priority','-date')
+    records = CustomerRecord.objects.filter(status='Due').order_by('priority','date')
     PaymentList = []
     for record in records:
         PaymentList.append((record.payment - record.advance))
@@ -29,7 +29,7 @@ def manage_due_view(request):
         return HttpResponseRedirect(reverse("customer:manage_due"))
 
     return render(request, 'customer/manage_due.html', {
-        'records': CustomerRecord.objects.filter(status='Due').order_by('-date')
+        'records': CustomerRecord.objects.filter(status='Due').order_by('date')
     })
 
 @login_required(login_url="emitr:login")
@@ -60,7 +60,7 @@ def completed_view(request):
     PaymentList = []
     for record in records:
         PaymentList.append((record.payment - record.advance))
-        
+
     return render(request, 'customer/completed.html', {
         'records': zip(records, PaymentList)
     })
@@ -116,7 +116,7 @@ def create_view(request):
             if int(request.POST['adv_payment']) > int(request.POST['payment']):
                 messages.info(request, "Provide Valid 'Payment' Or 'Advance Payment'!")
                 return HttpResponseRedirect(reverse("customer:create"))
-                
+
             name = request.POST["name"]
             mobile = request.POST["mobile"]
             service = request.POST["service"]
@@ -158,7 +158,7 @@ def search_view(request):
 
         field = request.POST['search-field']
         search_text = request.POST['search-text']
-        
+
         if field == 'mobile':
             results = CustomerRecord.objects.filter(mobile__contains=search_text)
         else:
@@ -179,9 +179,9 @@ def csv_view(request):
     response = HttpResponse(content_type='text/csv')
 
     writer = csv.writer(response)
-    writer.writerow(['Name', 'Mobile', 'Service', 'Sub-Service', 'Payment', 'Advance', 'Priority', 'Status', 'Date'])
+    writer.writerow(['Name', 'Mobile', 'Service', 'Sub-Service', 'Payment', 'Advance', 'Priority', 'Status', 'StatusChanged', 'Date'])
 
-    for record in CustomerRecord.objects.all().values_list('name', 'mobile', 'service', 'subservice', 'payment', 'advance', 'priority', 'status', 'date'):
+    for record in CustomerRecord.objects.all().values_list('name', 'mobile', 'service', 'subservice', 'payment', 'advance', 'priority', 'status', 'StatusChanged', 'date'):
         writer.writerow(record)
 
     response['Content-Disposition'] = 'attachment; filename="CusomterRecord.csv"'

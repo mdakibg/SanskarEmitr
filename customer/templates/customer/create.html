@@ -74,7 +74,7 @@
         function populate(s1, s2){
             var s1 = document.getElementById(s1);
             var s2 = document.getElementById(s2);
-        
+
             if(s1.value == ""){
                 s2.disabled = true;
             }
@@ -86,13 +86,15 @@
             {% for service in services %}
                 if(s1.value == "{{ service.name }}"){
                     var optionArray = [
-                        {% for subservice in service.subservices %} 
-                            "{{ subservice.name }}|{{ subservice.name }}  ({{ subservice.fee }})", 
+                        {% for subservice in service.subservices %}
+                            "{{ subservice.name }}|{{ subservice.name }}  ({{ subservice.fee }})",
+                        {% empty %}
+                            "None|None"
                         {% endfor %}
                     ]
                 }
             {% endfor %}
-        
+
             for (var option in optionArray){
                 var pair = optionArray[option].split("|");
                 var newOption = document.createElement("option");
